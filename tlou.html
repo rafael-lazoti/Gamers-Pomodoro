@@ -5,25 +5,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Last of Us</title>
+  <link rel="stylesheet" href="css/tlou.css">
 </head>
-<style>
-  h1 {
-    text-align: center;
-  }
-</style>
-
 
 <body>
+  <button class="main-page">
+    <a href="Gamer'sPomodoro.html"><b>Back</b></a>
+  </button>
 
   <h1>
-    <video width="1200" controls autoplay muted loop>
+    <video controls autoplay muted loop>
       <source src="videos/TLOU 4K Ambience Nature Reclaimed Neighborhood ｜ Relaxing Mix Music 🌿 .webm"
         type="video/webm">
-
     </video>
   </h1>
 
-  <a href="Gamer'sPomodoro.html">Back to main</a>
+  <div class="container">
+    <div class="circle">
+      <div class="time-display">25:00</div>
+    </div>
+
+    <!-- Make sure this div and its 3 buttons are in your HTML file! -->
+    <div class="controls-container">
+      <button id="start-btn" class="timer-btn">Start</button>
+      <button id="pause-btn" class="timer-btn">Pause</button>
+      <button id="reset-btn" class="timer-btn">Reset</button>
+    </div>
+  </div>
+
+  <script src="js/tlou.js"></script>
 </body>
 
 </html>

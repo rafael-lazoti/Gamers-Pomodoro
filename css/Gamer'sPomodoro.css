@@ -1,0 +1,36 @@
+
+    body {
+      background-color: color-mix(in srgb, black 70%, grey 30%);
+    }
+
+    h1 {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-align: center;
+      color: crimson;
+      font-size: 50px;
+    }
+
+    h3 {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: crimson;
+      text-align: center;
+      font-size: 23px;
+    }
+
+    table {
+      margin: auto;
+
+      border: 0;
+
+    }
+
+    tr {
+      text-align: center;
+      height: auto;
+    }
+
+    th {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 16;
+    }
+ 
