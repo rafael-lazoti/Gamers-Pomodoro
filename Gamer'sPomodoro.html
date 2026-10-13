@@ -1,47 +1,153 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gamer's Pomodoro</title>
+  <title>Gamer's Pomodoro — Focus & Game</title>
   <link rel="stylesheet" href="css/Gamer'sPomodoro.css">
 </head>
 
 <body>
-  <h1>Gamer's Pomodoro</h1>
-  <hr color="crimson" />
-  <br />
-  <h3>Choose from a variety of games, each game has it's own ambient soundtrack perfect for studying!</h3>
-  <!--Table structure tr = rows, td = data-->
-  <table>
-    <tr style="background-color: crimson;">
-      <th width="500">The Last Of Us</th>
-      <th width="500">Life Is Strange</th>
-      <th width="500">Hollow Knight</th>
-    <tr>
-      <th><a href="tlou.html"><img src="images/tlouimg.jpg" width="500" height="300"></a></th>
-      <th>
-        <img src="images/lis.jpg" width="500" height="300">
-      </th>
-      <th><img src="images/hollowknight.avif" width="500" height="300"></th>
-    </tr>
-    </tr>
-    <tr style=background-color:crimson;>
-      <th width="500">Zelda</th>
-      <th width="500">Dark Souls</th>
-      <th width="500">Minecraft</th>
-    <tr>
-      <th><img src="images/zelda.jpg.webp" width=" 500" height="300"></th>
-      <th>
-        <img src="images/darksouls.jpg" width="500" height="300">
-      </th>
-      <th><img src="images/minecraft.jpg" width="500" height="300"></th>
-    </tr>
-    </tr>
-  </table>
+  <!--
+    BACKGROUND LAYERS
+    These fixed-position divs create the campfire atmosphere.
+    They sit behind the page content (z-index: 0) and are never scrolled.
+  -->
 
+  <!-- Layer 1: Ground plane — dark earth surface at the bottom -->
+  <div class="ground"></div>
+
+  <!-- Layer 2: Campfire glow — flickering warm light from the fire -->
+  <div class="campfire-glow"></div>
+
+  <!-- Layer 3: Ember particles — rising from the fire -->
+  <div class="embers">
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+
+  </div>
+
+  <!-- Layer 4: Vignette — dark edges, warm center -->
+  <div class="vignette"></div>
+
+  <!-- Main page content (above all layers) -->
+  <div class="page-wrapper">
+
+    <!-- Hero section with title and tagline -->
+    <div class="hero">
+      <h1>Gamer's Pomodoro</h1>
+      <p>Focus. Game. Repeat. — Study or work with your favorite game soundtracks in the background.</p>
+    </div>
+
+    <!--
+      GAME GRID
+      Replaced the old <table> layout with CSS Grid.
+      Each game is now a glassmorphic card — a <a> link that wraps the image and title.
+      hover effects give lift, glow, and color shift.
+    -->
+    <div class="game-grid">
+
+      <!-- The Last of Us -->
+      <a href="tlou.html" class="game-card">
+        <img src="images/tlouimg.jpg" alt="The Last of Us" class="game-card-image">
+        <div class="game-card-overlay">
+          <div>
+            <h3 class="game-card-title">The Last of Us</h3>
+            <div class="game-card-footer">Click to enter</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Life Is Strange -->
+      <a href="lis.html" class="game-card">
+        <img src="images/lis.jpg" alt="Life Is Strange" class="game-card-image">
+        <div class="game-card-overlay">
+          <div>
+            <h3 class="game-card-title">Life Is Strange</h3>
+            <div class="game-card-footer">Click to enter</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Hollow Knight -->
+      <a href="hk.html" class="game-card">
+        <img src="images/hollowknight.avif" alt="Hollow Knight" class="game-card-image">
+        <div class="game-card-overlay">
+          <div>
+            <h3 class="game-card-title">Hollow Knight</h3>
+            <div class="game-card-footer">Click to enter</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Zelda -->
+      <a href="#" class="game-card">
+        <img src="images/zelda.jpg.webp" alt="Zelda" class="game-card-image">
+        <div class="game-card-overlay">
+          <div>
+            <h3 class="game-card-title">Zelda</h3>
+            <div class="game-card-footer">Coming Soon</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Dark Souls -->
+      <a href="#" class="game-card">
+        <img src="images/darksouls.jpg" alt="Dark Souls" class="game-card-image">
+        <div class="game-card-overlay">
+          <div>
+            <h3 class="game-card-title">Dark Souls</h3>
+            <div class="game-card-footer">Coming Soon</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Minecraft -->
+      <a href="#" class="game-card">
+        <img src="images/minecraft.jpg" alt="Minecraft" class="game-card-image">
+        <div class="game-card-overlay">
+          <div>
+            <h3 class="game-card-title">Minecraft</h3>
+            <div class="game-card-footer">Coming Soon</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+    <!-- End game grid -->
+
+  </div>
+  <!-- End page wrapper -->
+
+  <script src="js/Gamer'sPomodoro.js"></script>
 </body>
 
 </html>
-<!--Comment -->

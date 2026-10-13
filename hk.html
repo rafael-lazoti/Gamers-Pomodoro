@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hollow Knight — Gamer's Pomodoro</title>
+  <link rel="stylesheet" href="css/game-page.css">
+</head>
+
+<body>
+  <!-- Main video — preload ensures immediate loading -->
+  <video class="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="videos/Hollow Knight Ambience 10h - Greenpath (Bass + waterfall + atmos loop) [P-sP9PbZTX0].webm" type="video/webm">
+  </video>
+
+  <div class="video-overlay"></div>
+
+  <!-- Top bar: [Back] [Timer] [Audio] -->
+  <div class="top-bar">
+    <a href="Gamer'sPomodoro.html" class="back-btn">← Back</a>
+    <div class="timer-card">
+      <div class="timer-ring-container">
+        <svg class="timer-ring" viewBox="0 0 50 50">
+          <defs>
+            <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff4040" />
+              <stop offset="100%" stop-color="#ff8060" />
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="25" cy="25" r="20" />
+          <circle class="timer-ring-progress" id="timerRing" cx="25" cy="25" r="20" />
+        </svg>
+      </div>
+      <div class="timer-display" id="timer-display">25:00</div>
+      <div class="timer-divider"></div>
+      <div class="timer-right">
+        <button id="start-btn" class="timer-btn" onclick="startButtonClick()">Start</button>
+        <button id="pause-btn" class="timer-btn" onclick="pauseButtonClick()">Pause</button>
+        <button id="reset-btn" class="timer-btn" onclick="resetButtonClick()">Reset</button>
+      </div>
+    </div>
+    <button class="audio-toggle" id="audioToggle" onclick="toggleAudio()">🔇 Audio</button>
+  </div>
+
+  <!-- Show/hide always visible -->
+  <button class="show-hide-btn" id="showHideBtn" onclick="toggleTimerVisibility()">
+    Hide Timer
+  </button>
+
+  <script>
+    var video = document.querySelector('.bg-video');
+
+    // Ensure video starts playing
+    if (video) {
+      video.play().catch(function() {
+        video.muted = true;
+        video.play();
+      });
+    }
+
+    function toggleTimerVisibility() {
+      var body = document.body;
+      var btn = document.getElementById('showHideBtn');
+      body.classList.toggle('timer-hidden');
+      btn.textContent = body.classList.contains('timer-hidden') ? 'Show Timer' : 'Hide Timer';
+    }
+
+    function toggleAudio() {
+      var video = document.querySelector('.bg-video');
+      var btn = document.getElementById('audioToggle');
+      video.muted = !video.muted;
+      btn.textContent = video.muted ? '🔇 Audio' : '🔊 Audio';
+    }
+  </script>
+
+  <script src="js/tlou.js"></script>
+</body>
+
+</html>

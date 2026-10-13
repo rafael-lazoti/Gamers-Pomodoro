@@ -1,0 +1,298 @@
+/* ============================================
+   GAME PAGE STYLES
+   - Video as main content
+   - Warm red/orange themed UI
+   - Single top bar: [Back] [Timer] [Audio]
+   - Show/Hide timer always visible at bottom right
+   ============================================ */
+
+/* RESET */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  background-color: #0d0806;
+  color: #f0e0d0;
+}
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap');
+
+/*
+ * BACKGROUND VIDEO
+ * Full viewport — the main content with native controls.
+ */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/*
+ * DARK OVERLAY — vignette around the video
+ * Darker at edges, more transparent in center.
+ * Warm brown tones instead of pure black.
+ */
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 8, 6, 0.6) 0%,
+    rgba(13, 8, 6, 0.1) 25%,
+    rgba(13, 8, 6, 0.05) 50%,
+    rgba(13, 8, 6, 0.1) 75%,
+    rgba(13, 8, 6, 0.6) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/*
+ * TOP BAR — single row at top center
+ * [Back] — [Timer] — [Audio]
+ * Warm brown-tinted glassmorphic bar
+ */
+.top-bar {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(30, 18, 14, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(204, 51, 51, 0.2);
+  border-radius: 35px;
+  padding: 8px 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 200, 150, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When timer is hidden, slide the entire top bar up */
+.timer-hidden .top-bar {
+  transform: translateX(-50%) translateY(-150%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+ * BACK BUTTON — left side
+ */
+.back-btn {
+  padding: 8px 16px;
+  background: rgba(232, 93, 58, 0.1);
+  border: 1px solid rgba(204, 51, 51, 0.25);
+  border-radius: 20px;
+  color: #e87050;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.back-btn:hover {
+  background: rgba(232, 93, 58, 0.25);
+  border-color: rgba(232, 93, 58, 0.6);
+  box-shadow: 0 0 12px rgba(232, 93, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+/*
+ * TIMER CARD — center of the bar
+ * Horizontal layout: [Ring] [Digits] | [Start] [Pause] [Reset]
+ */
+.timer-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  padding: 4px 8px;
+}
+
+.timer-ring-container {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.timer-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.timer-ring-bg {
+  fill: none;
+  stroke: rgba(232, 93, 58, 0.1);
+  stroke-width: 3;
+}
+
+.timer-ring-progress {
+  fill: none;
+  stroke: url(#redGradient);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 126; /* circumference of r=20 */
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+  filter: drop-shadow(0 0 4px rgba(232, 93, 58, 0.5));
+}
+
+.timer-display {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 26px;
+  color: #f0e0d0;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.timer-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(232, 93, 58, 0.2);
+  flex-shrink: 0;
+}
+
+.timer-right {
+  display: flex;
+  gap: 6px;
+}
+
+.timer-btn {
+  padding: 6px 12px;
+  background: rgba(232, 93, 58, 0.1);
+  border: 1px solid rgba(232, 93, 58, 0.2);
+  border-radius: 16px;
+  color: #e87050;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.timer-btn:hover {
+  background: rgba(232, 93, 58, 0.25);
+  border-color: rgba(232, 93, 58, 0.6);
+  box-shadow: 0 0 12px rgba(232, 93, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+/*
+ * AUDIO TOGGLE — right side
+ */
+.audio-toggle {
+  padding: 8px 14px;
+  background: rgba(232, 93, 58, 0.1);
+  border: 1px solid rgba(204, 51, 51, 0.25);
+  border-radius: 20px;
+  color: #e87050;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.audio-toggle:hover {
+  background: rgba(232, 93, 58, 0.25);
+  border-color: rgba(232, 93, 58, 0.6);
+  box-shadow: 0 0 12px rgba(232, 93, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+/*
+ * SHOW/HIDE TIMER — bottom right corner, always visible
+ */
+.show-hide-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  background: rgba(30, 18, 14, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(232, 93, 58, 0.3);
+  border-radius: 25px;
+  color: #e87050;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 20;
+}
+
+.show-hide-btn:hover {
+  background: rgba(232, 93, 58, 0.25);
+  border-color: rgba(232, 93, 58, 0.6);
+  box-shadow: 0 0 20px rgba(232, 93, 58, 0.3);
+  transform: translateY(-2px);
+}
+
+/* AMBIENT EMBERS (only on landing page, hidden when video plays) */
+.embers {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.embers.hidden {
+  display: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 750px) {
+  .top-bar {
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 25px;
+  }
+
+  .back-btn, .audio-toggle {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .timer-ring-container {
+    width: 34px;
+    height: 34px;
+  }
+
+  .timer-ring {
+    stroke-dasharray: 94; /* circumference of r=15 */
+  }
+
+  .timer-display {
+    font-size: 20px;
+  }
+
+  .timer-btn {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  .timer-divider {
+    height: 18px;
+  }
+}

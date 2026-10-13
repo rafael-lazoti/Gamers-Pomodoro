@@ -4,34 +4,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Last of Us</title>
-  <link rel="stylesheet" href="css/tlou.css">
+  <title>The Last of Us — Gamer's Pomodoro</title>
+  <link rel="stylesheet" href="css/game-page.css">
 </head>
 
 <body>
-  <button class="main-page">
-    <a href="Gamer'sPomodoro.html"><b>Back</b></a>
+  <!-- Main video content — preload ensures it starts loading immediately -->
+  <video class="bg-video" autoplay muted loop playsinline preload="auto" playsinline>
+    <source src="videos/tlouVideo.webm" type="video/webm">
+  </video>
+
+  <!-- Dark vignette overlay -->
+  <div class="video-overlay"></div>
+
+  <!--
+    TOP BAR — single row at top center
+    [Back] — [Timer] — [Audio]
+    Slides away together when timer is hidden
+  -->
+  <div class="top-bar">
+    <!-- LEFT: Back button -->
+    <a href="Gamer'sPomodoro.html" class="back-btn">← Back</a>
+
+    <!-- CENTER: Horizontal timer -->
+    <div class="timer-card">
+      <div class="timer-ring-container">
+        <svg class="timer-ring" viewBox="0 0 50 50">
+          <defs>
+            <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff4040" />
+              <stop offset="100%" stop-color="#ff8060" />
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="25" cy="25" r="20" />
+          <circle class="timer-ring-progress" id="timerRing" cx="25" cy="25" r="20" />
+        </svg>
+      </div>
+      <div class="timer-display" id="timer-display">25:00</div>
+      <div class="timer-divider"></div>
+      <div class="timer-right">
+        <button id="start-btn" class="timer-btn" onclick="startButtonClick()">Start</button>
+        <button id="pause-btn" class="timer-btn" onclick="pauseButtonClick()">Pause</button>
+        <button id="reset-btn" class="timer-btn" onclick="resetButtonClick()">Reset</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Audio toggle -->
+    <button class="audio-toggle" id="audioToggle" onclick="toggleAudio()">🔇 Audio</button>
+  </div>
+
+  <!--
+    SHOW/HIDE TIMER — always visible, bottom right corner
+    Independent of the top bar, always on screen.
+  -->
+  <button class="show-hide-btn" id="showHideBtn" onclick="toggleTimerVisibility()">
+    Hide Timer
   </button>
 
-  <h1>
-    <video controls autoplay muted loop>
-      <source src="videos/TLOU 4K Ambience Nature Reclaimed Neighborhood ｜ Relaxing Mix Music 🌿 .webm"
-        type="video/webm">
-    </video>
-  </h1>
+  <!-- UI logic -->
+  <script>
+    var video = document.querySelector('.bg-video');
 
-  <div class="container">
-    <div class="circle">
-      <div class="time-display">25:00</div>
-    </div>
+    // Ensure video actually starts playing
+    // Some browsers block autoplay even on muted videos, so we add a fallback
+    if (video) {
+      video.play().catch(function() {
+        // If autoplay is blocked, user just clicks play manually
+        video.muted = true; // Ensure muted
+        video.play();
+      });
+    }
 
-    <!-- Make sure this div and its 3 buttons are in your HTML file! -->
-    <div class="controls-container">
-      <button id="start-btn" class="timer-btn">Start</button>
-      <button id="pause-btn" class="timer-btn">Pause</button>
-      <button id="reset-btn" class="timer-btn">Reset</button>
-    </div>
-  </div>
+    // Toggle timer visibility — hides/shows the top bar
+    function toggleTimerVisibility() {
+      var body = document.body;
+      var btn = document.getElementById('showHideBtn');
+      body.classList.toggle('timer-hidden');
+      btn.textContent = body.classList.contains('timer-hidden') ? 'Show Timer' : 'Hide Timer';
+    }
+
+    // Audio toggle
+    function toggleAudio() {
+      var video = document.querySelector('.bg-video');
+      var btn = document.getElementById('audioToggle');
+      video.muted = !video.muted;
+      btn.textContent = video.muted ? '🔇 Audio' : '🔊 Audio';
+    }
+  </script>
 
   <script src="js/tlou.js"></script>
 </body>
